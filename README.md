@@ -6,7 +6,6 @@
 
 ![C](https://img.shields.io/badge/Linguagem-C-00599C?style=flat-square&logo=c&logoColor=white)
 ![GCC](https://img.shields.io/badge/Compilador-GCC-555555?style=flat-square)
-![Status](https://img.shields.io/badge/Status-Em%20desenvolvimento-E5A100?style=flat-square)
 ![UNIR](https://img.shields.io/badge/UNIR-Ciência%20da%20Computação-174A35?style=flat-square)
 
 </div>
