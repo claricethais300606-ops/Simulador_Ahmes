@@ -46,7 +46,6 @@ Simulador_Ahmes/
 │       ├── interface.c / .h
 │       └── controle.c / .h
 ├── tests/
-├── docs/
 ├── Makefile
 ├── compilar_windows.bat
 └── README.md
