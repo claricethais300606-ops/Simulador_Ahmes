@@ -30,8 +30,6 @@ A aplicação é desenvolvida em **linguagem C**, com uma arquitetura modular e 
 - Reinicialização da CPU.
 - Tratamento de erros e controle de execução.
 
-> **Nota:** O projeto está em desenvolvimento. Novas funcionalidades de carregamento de programas e visualização da memória serão integradas posteriormente.
-
 ## Estrutura do projeto
 
 ```text
