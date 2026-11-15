@@ -4,7 +4,7 @@
 #include "instrucoes.h"
 #include "ciclo.h"
 
-int main() {
+int executarTestesOriginais(void) {
 
     Processador cpu;
 

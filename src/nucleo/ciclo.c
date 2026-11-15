@@ -8,21 +8,16 @@ int executarCiclo(Processador *cpu) {
     unsigned char codigo;
     unsigned char operando = 0;
 
-    // Se o processador estiver parado, não executa nada
     if (cpu->parado == 1) {
         return 0;
     }
 
-    // BUSCA: pega a instrução na memória
     codigo = lerMemoria(cpu->PC);
 
-    // Guarda a instrução no registrador IR
     cpu->IR = codigo;
 
-    // Avança o PC
     cpu->PC++;
 
-    // DECODIFICAÇÃO: verifica se precisa de operando
     switch (codigo) {
 
         case NOP:
@@ -52,7 +47,6 @@ int executarCiclo(Processador *cpu) {
         case JB:
         case JNB:
 
-            // Busca o operando na memória
             operando = lerMemoria(cpu->PC);
             cpu->PC++;
             break;
@@ -61,7 +55,7 @@ int executarCiclo(Processador *cpu) {
     return executarInstrucao(cpu, codigo, operando);
     }
 
-    // EXECUÇÃO
+
     return executarInstrucao(cpu, codigo, operando);
 }
 
