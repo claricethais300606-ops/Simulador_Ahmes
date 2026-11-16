@@ -4,6 +4,7 @@
 #include "controle.h"
 #include "memoria.h"
 #include "instrucoes.h"
+#include "carregador.h"
 
 int executarTestesOriginais(void);
 int main(int argc, char **argv) {

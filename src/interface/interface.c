@@ -1,10 +1,12 @@
 #include "interface.h"
 #include "memoria.h"
+#include "carregador.h"
 #include <stdio.h>
 #include <stdlib.h>
 #include <ctype.h>
 #include <errno.h>
 #include <limits.h>
+
 
 static void binario(unsigned char v, char s[9]) {
     for(int i=7;i>=0;--i) s[7-i]=(v & (1u<<i)) ? '1':'0';
@@ -62,6 +64,49 @@ static void ajuda(void) {
     puts("Use 0 para sair. O programa inicial e uma demonstracao embutida.");
     puts("Carregamento e visualizacao completa da memoria serao integrados depois.");
 }
+static void mostrarMemoria(void) {
+    printf("\n========== MEMORIA AHMES ==========\n");
+
+    printf("Endereco | Valores armazenados\n");
+    printf("----------------------------------\n");
+
+    for (int i = 0; i < TAMANHO_MEMORIA; i++) {
+
+        if (i % 16 == 0) {
+            printf("\n%03d     | ", i);
+        }
+
+        printf("%02X ", lerMemoria(i));
+    }
+
+    printf("\n\n===================================\n");
+}
+static void solicitarCarregamento(void) {
+    char nomeArquivo[256];
+
+    printf("\nDigite o nome do arquivo: ");
+
+    if (fgets(nomeArquivo, sizeof(nomeArquivo), stdin) == NULL) {
+        puts("Erro ao ler o nome do arquivo.");
+        return;
+    }
+
+    int i = 0;
+
+    while (nomeArquivo[i] != '\0' && nomeArquivo[i] != '\n') {
+        i++;
+    }
+
+    nomeArquivo[i] = '\0';
+
+    if (nomeArquivo[0] == '\0') {
+        puts("Nome do arquivo nao informado.");
+        return;
+    }
+
+    carregarPrograma(nomeArquivo);
+}
+
 static int lerOpcao(int *opcao) {
     char linha[128], *fim;
     long numero;
@@ -96,11 +141,13 @@ void executarInterface(Controle *c) {
         puts(" [4] Reiniciar processador");
         puts(" [5] Exibir estado da execucao");
         puts(" [6] Ajuda e instrucoes");
+        puts(" [7] Visualizar memoria");
+        puts(" [8] Carregar programa de arquivo");
         puts(" [0] Sair");
         printf("Selecione uma opcao: "); fflush(stdout);
         int leitura=lerOpcao(&opcao);
         if(leitura<0) { puts("\nEntrada encerrada. Saindo."); return; }
-        if(leitura==0) { puts("Entrada invalida. Digite um numero de 0 a 6."); continue; }
+        if(leitura==0) { puts("Entrada invalida. Digite um numero de 0 a 8."); continue; }
         switch(opcao) {
             case 0: puts("Encerrando simulador."); return;
             case 1: mostrarCPU(&c->cpu); break;
@@ -125,7 +172,9 @@ void executarInterface(Controle *c) {
             case 4: reiniciarControle(c); puts("CPU reiniciada. Memoria preservada."); break;
             case 5: estado(c); break;
             case 6: ajuda(); break;
-            default: puts("Opcao inexistente. Escolha de 0 a 6."); break;
+            case 7: mostrarMemoria(); break;
+            case 8: solicitarCarregamento(); break;
+            default: puts("Opcao inexistente. Escolha de 0 a 8."); break;
         }
     }
 }
